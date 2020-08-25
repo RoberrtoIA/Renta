@@ -5,6 +5,8 @@
  */
 package classes;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author rober
@@ -18,6 +20,7 @@ public class Renta {
     public double renta;
     public double salarionetom;
     public double bono;
+    public double sumar_aguinaldo;
 
     public double getSalariomenos() {
         return salariomenos;
@@ -72,6 +75,7 @@ public class Renta {
     }
     
     public Renta(double salario, double aguinaldo, double bono) {
+        this.sumar_aguinaldo = round(aguinaldo, 2);
         this.salario = salario;
         this.bono = round(bono, 2);
         this.salario = round((this.salario + this.bono), 2);
@@ -82,7 +86,7 @@ public class Renta {
         }else{
             this.isss = round((this.salario * 0.03), 2);
         }
-        this.salariomenos = round((this.salario - (this.isss + this.afp)), 2);
+        this.salariomenos = round((this.salario - (this.isss + this.afp)) + this.sumar_aguinaldo, 2);
         
         if(this.salariomenos <= 472){//tramo 1
             this.renta = 0;
@@ -100,6 +104,7 @@ public class Renta {
             this.renta = round((this.renta + 288.57), 2);
         }
         this.salarionetom = round((this.salario - (this.afp + this.isss + this.renta)), 2);
+        this.salarionetom = this.salarionetom;
     }
     
     public static double round(double value, int places) {

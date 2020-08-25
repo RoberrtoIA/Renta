@@ -7,10 +7,30 @@ package interfaces;
 
 import classes.Renta;
 import java.awt.Font;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -25,6 +45,7 @@ public class tabla extends javax.swing.JFrame {
     ArrayList<Renta> lista;
     DefaultTableModel modelo;
     String[] meses;
+    ImageIcon icon;
     
     //datos a exportar al pdf, son los totales ya
     double aguinaldo;
@@ -36,9 +57,15 @@ public class tabla extends javax.swing.JFrame {
     double ingresos;
     double salariototal;
     String nit;
-    public tabla(ArrayList<Renta> lista, double aguinaldo, double aguinaldo_renta, String nit) {
+    String nombre;
+    //hasta aqui
+   
+    public tabla(ArrayList<Renta> lista, double aguinaldo, double aguinaldo_renta, String nit, String nombre) {
         initComponents();
-       this.lista = lista;
+        this.setLocationRelativeTo(null);
+        icon = new ImageIcon(getClass().getClassLoader().getResource("cuenta.png"));
+        this.setIconImage(icon.getImage());
+        this.lista = lista;
         this.aguinaldo = aguinaldo;
         this.aguinaldo_renta = aguinaldo_renta;
         this.nit = nit;
@@ -48,6 +75,7 @@ public class tabla extends javax.swing.JFrame {
         isss = 0;
         ingresos = 0;
         salariototal = 0;
+        this.nombre = nombre;
         this.setTitle("Registro de retenciones de Enero a Diciembre");
         modelo = (DefaultTableModel) this.jTable1.getModel();
         this.jLabel2.setText(Double. toString(this.aguinaldo_renta));
@@ -67,7 +95,7 @@ public class tabla extends javax.swing.JFrame {
         this.meses[11] = "Diciembre";
         
         for (int i = 0; i < meses.length; i++) {
-            if (i < 12) {
+            if (i < 11) {
                 this.modelo.addRow(new Object[]{meses[i], "$" + this.lista.get(i).salariomenos + "  ", "$" + this.lista.get(i).renta + "  ",
                     "$" + this.lista.get(i).afp, "$" + this.lista.get(i).isss + "  ", "$" + this.lista.get(i).salario + "  "});
                 total_remuneracion = total_remuneracion + round((this.lista.get(i).salariomenos), 2);
@@ -75,21 +103,20 @@ public class tabla extends javax.swing.JFrame {
                 afp = round((afp + this.lista.get(i).afp), 2);
                 isss = round((isss + this.lista.get(i).isss), 2);
                 salariototal = round((salariototal + this.lista.get(i).salario), 2);
-            } else {/*
-                double mas = this.lista.get(i).salariomenos + this.aguinaldo_renta;
+            } else {
                 double mas_aguinaldo = this.lista.get(i).salario + this.aguinaldo;
-                this.modelo.addRow(new Object[]{meses[i], "$" + mas + "  ",
-                    "$" + this.lista.get(i).renta + "  ", "$" + this.lista.get(i).afp, "$" + this.lista.get(i).isss + "  ",
-                    "$" + mas_aguinaldo + "  "});
-                total_remuneracion = round((total_remuneracion + mas), 2);
+                this.modelo.addRow(new Object[]{meses[i], "$" + this.lista.get(i).salariomenos + "  ", "$" + this.lista.get(i).renta + "  ",
+                    "$" + this.lista.get(i).afp, "$" + this.lista.get(i).isss + "  ", "$" + mas_aguinaldo + "  "});
+                total_remuneracion = round((total_remuneracion + this.lista.get(i).salariomenos), 2);
                 renta = round((renta + this.lista.get(i).renta), 2);
                 afp = round((afp + this.lista.get(i).afp), 2);
                 isss = round((isss + this.lista.get(i).isss), 2);
-                salario = round((salario + this.lista.get(i).salario), 2);*/
-
+                salariototal = round((salariototal + mas_aguinaldo), 2);
             }
 
         }
+        this.modelo.addRow(new Object[]{"TOTAL", "$" + total_remuneracion + "  ", "$" + renta + "  ", "$" + afp + "  ", "$" + isss + "  ",
+            "$" + salariototal + "  "});
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
        centerRender.setHorizontalAlignment(JLabel.CENTER);
        
@@ -135,6 +162,7 @@ public class tabla extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,6 +190,11 @@ public class tabla extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jButton1.setText("Imprimir Constancia");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
         jLabel2.setText("jLabel2");
@@ -175,6 +208,14 @@ public class tabla extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jLabel5.setText("Aguinaldo (NO) Gravado  $");
 
+        jButton2.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jButton2.setText("Nuevo Calculo");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,25 +223,29 @@ public class tabla extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(413, 413, 413)
+                        .addGap(368, 368, 368)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(329, 329, 329)
+                        .addGap(100, 100, 100)
+                        .addComponent(jButton2)
+                        .addGap(91, 91, 91)
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel4))
-                            .addComponent(jLabel5))
-                        .addGap(11, 11, 11)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                                .addGap(178, 178, 178)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(178, 178, 178)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,22 +253,90 @@ public class tabla extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(jLabel1)
                 .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel5))
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(1, 1, 1)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(jLabel3))
-                    .addComponent(jButton1)))
+                    .addComponent(jLabel4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            
+            /*InputStream file = getClass().getResourceAsStream("Blank_A4.jasper");
+            JasperDesign jasperDesign = JRXmlLoader.load(file);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);*/
+            //El archivo Blank_A4_2 solo es un hola no tiene parametros
+            
+            
+            String path = "src/report/Blank_A4.jasper";
+            //JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/report/Blank_A4.jasper"));
+            
+            //(getClass().getClassLoader().getResource("Blank_A4.jasper")).toString()
+            
+            //JasperPrint jprint = JasperFillManager.fillReport(reporte, new HashMap<>(), new JREmptyDataSource());
+            //Fin Original solo valido para el Blank_A4_2
+            
+            
+            
+            Map parametro = new HashMap();
+            parametro.put("pnombre", nombre);
+            parametro.put("pnit",nit);
+            parametro.put("pfechainicial","01/01/2020");
+            parametro.put("pfechafinal","31/12/2020");
+            parametro.put("psalariototalaguinaldo",(this.salariototal-this.aguinaldo_renta));
+            parametro.put("paguinaldo_renta",this.aguinaldo_renta);
+            parametro.put("pafp",this.afp);
+            parametro.put("pisss",this.isss);
+            parametro.put("ptotal_remuneracion",this.total_remuneracion);
+            parametro.put("aguinaldoaguinaldorenta",(this.aguinaldo-this.aguinaldo_renta));
+            parametro.put("prenta",this.renta);
+            //JasperPrint jprint = JasperFillManager.fillReport(jasperReport, parametro, new JREmptyDataSource());
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JREmptyDataSource());
+            JasperViewer view = new JasperViewer(jprint, false);
+            
+            
+            
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            
+            view.setVisible(true);
+            
+            /*InputStream in = new FileInputStream(new File("C:\\Users\\rober\\OneDrive\\Documentos\\NetBeansProjects\\Renta\\src\\report\\newReport.jrxml"));
+            JasperDesign jd = JRXmlLoader.load(in);
+            String hola = "holaaaaaaaaaa";*/
+        } catch (JRException ex) {
+            Logger.getLogger(tabla.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        try {
+            input input = new input();
+            input.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(tabla.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,6 +375,7 @@ public class tabla extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

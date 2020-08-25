@@ -6,6 +6,7 @@
 package renta;
 
 import interfaces.input;
+import java.io.IOException;
 
 /**
  *
@@ -16,7 +17,7 @@ public class Renta {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
         input input = new input();
         input.setVisible(true);

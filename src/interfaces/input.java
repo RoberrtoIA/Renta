@@ -9,9 +9,18 @@ package interfaces;
 
 
 import classes.Renta;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,16 +32,24 @@ public class input extends javax.swing.JFrame {
      * Creates new form input
      */
     ArrayList<Renta> lista;
-    ArrayList<Double> bono;
+    ArrayList<Double> ldias;
+    ArrayList<Double> lporcentaje;
     int previousIndex;
+    ImageIcon icon;
+    tabla tabla;
 
-    public input() {
+    public input() throws IOException {
         initComponents();
+        
+        //icon = new ImageIcon("image/cuenta.png");
+        icon = new ImageIcon(getClass().getClassLoader().getResource("cuenta.png"));
+        this.setIconImage(icon.getImage());
         previousIndex = 0;
         lista = new ArrayList();
-        bono = new ArrayList();
-        llenarMonto();
+        ldias = new ArrayList();
+        lporcentaje = new ArrayList();
         this.setLocationRelativeTo(null);
+        this.jtxtnombre.requestFocus();
         this.jtxtnombre.setText("");
         this.jtxtsalario.setText("");
         this.jtxtafp.setText("");
@@ -45,15 +62,22 @@ public class input extends javax.swing.JFrame {
         this.nit3.setText("");
         this.nit4.setText("");
         this.jtxtbono1.setText("");
-        this.jtxtaguinaldo.setText("");
         this.setTitle("Calculo de salario en El Salvador");
         this.jButton2.setEnabled(false);
         this.jButton3.setEnabled(false);
+        
         this.jtxtafp.setEditable(false);
         this.jtxtisss.setEditable(false);
         this.jtstsalariomenos.setEditable(false);
         this.jtxtrenta.setEditable(false);
         this.jtxtsalarioneto.setEditable(false);
+        
+        this.jtxtafp.setEnabled(false);
+        this.jtxtisss.setEnabled(false);
+        this.jtstsalariomenos.setEnabled(false);
+        this.jtxtrenta.setEnabled(false);
+        this.jtxtsalarioneto.setEnabled(false);
+        
         this.jRadioButton1.setEnabled(false);
         this.jRadioButton2.setEnabled(false);
         this.jRadioButton3.setEnabled(false);
@@ -61,8 +85,40 @@ public class input extends javax.swing.JFrame {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd \n HH:mm");
         LocalDateTime now = LocalDateTime.now();
         this.jLabel7.setText(dtf.format(now));
+        
+        this.jTextField1.setText("");
+        this.jTextField2.setText("");
+        this.jTextField3.setText("");
+        this.jTextField4.setText("");
+        this.jTextField5.setText("");
+        this.jTextField6.setText("");
+        this.jTextField7.setText("");
+        this.jTextField8.setText("");
+        this.jTextField9.setText("");
+        this.jTextField10.setText("");
+        this.jTextField11.setText("");
+        this.jTextField12.setText("");
+        this.jTextField13.setText("");
+        this.jTextField14.setText("");
+        this.jTextField15.setText("");
+        this.jTextField16.setText("");
+        this.jTextField17.setText("");
+        this.jTextField18.setText("");
+        this.jTextField19.setText("");
+        this.jTextField20.setText("");
+        this.jTextField21.setText("");
+        this.jTextField22.setText("");
+        this.jTextField23.setText("");
+        this.jTextField24.setText("");
+        
+        for (int i = 0; i < 12; i++) {
+            this.ldias.add(Double.valueOf(0));
+            this.lporcentaje.add(Double.valueOf(0));
+        }
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,14 +151,11 @@ public class input extends javax.swing.JFrame {
         jRadioButton3 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jtxtaguinaldo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jtxtbono1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         nit1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         nit2 = new javax.swing.JTextField();
         nit3 = new javax.swing.JTextField();
@@ -110,29 +163,79 @@ public class input extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField7 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
+        jTextField10 = new javax.swing.JTextField();
+        jTextField11 = new javax.swing.JTextField();
+        jTextField12 = new javax.swing.JTextField();
+        jTextField13 = new javax.swing.JTextField();
+        jTextField14 = new javax.swing.JTextField();
+        jTextField15 = new javax.swing.JTextField();
+        jTextField16 = new javax.swing.JTextField();
+        jTextField17 = new javax.swing.JTextField();
+        jTextField18 = new javax.swing.JTextField();
+        jTextField19 = new javax.swing.JTextField();
+        jTextField20 = new javax.swing.JTextField();
+        jTextField21 = new javax.swing.JTextField();
+        jTextField22 = new javax.swing.JTextField();
+        jTextField23 = new javax.swing.JTextField();
+        jTextField24 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jnombre.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jnombre.setText("Nombre:");
+        getContentPane().add(jnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 42, -1, -1));
 
         jsalario.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jsalario.setText("Ingresa tu salario:");
+        getContentPane().add(jsalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 90, -1, -1));
 
         jafp.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jafp.setText("AFP:");
+        getContentPane().add(jafp, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 140, -1, -1));
 
         jisss.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jisss.setText("ISSS:");
+        getContentPane().add(jisss, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 35, -1));
 
         jsalariomenos.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jsalariomenos.setText("Salario (-) ISSS y AFP:");
+        getContentPane().add(jsalariomenos, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 241, -1, -1));
 
         jrenta.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jrenta.setText("Renta (+) cuota fija:");
+        getContentPane().add(jrenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 291, -1, -1));
 
         jsalarioneto.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jsalarioneto.setText("Salario neto:");
+        getContentPane().add(jsalarioneto, new org.netbeans.lib.awtextra.AbsoluteConstraints(77, 343, -1, -1));
 
         jButton1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         jButton1.setText("Borrar");
@@ -141,6 +244,7 @@ public class input extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, -1, -1));
 
         jButton2.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         jButton2.setText("Calcular");
@@ -149,6 +253,7 @@ public class input extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 83, -1));
 
         jButton3.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 14)); // NOI18N
         jButton3.setText("Renta Anual");
@@ -157,6 +262,7 @@ public class input extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, -1, -1));
 
         jtxtnombre.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtxtnombre.setText("jTextField1");
@@ -173,6 +279,7 @@ public class input extends javax.swing.JFrame {
                 jtxtnombreKeyTyped(evt);
             }
         });
+        getContentPane().add(jtxtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 40, 156, -1));
 
         jtxtsalario.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtxtsalario.setText("jTextField2");
@@ -184,21 +291,32 @@ public class input extends javax.swing.JFrame {
                 jtxtsalarioKeyTyped(evt);
             }
         });
+        getContentPane().add(jtxtsalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 87, 156, -1));
 
         jtxtafp.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtxtafp.setText("jTextField3");
+        getContentPane().add(jtxtafp, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 137, 156, -1));
 
         jtxtisss.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtxtisss.setText("jTextField4");
+        getContentPane().add(jtxtisss, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 156, -1));
 
         jtstsalariomenos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtstsalariomenos.setText("jTextField5");
+        getContentPane().add(jtstsalariomenos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 241, 156, -1));
 
         jtxtrenta.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtxtrenta.setText("jTextField6");
+        getContentPane().add(jtxtrenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 287, 156, -1));
 
         jtxtsalarioneto.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtxtsalarioneto.setText("jTextField7");
+        jtxtsalarioneto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtsalarionetoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jtxtsalarioneto, new org.netbeans.lib.awtextra.AbsoluteConstraints(178, 340, 156, -1));
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -209,6 +327,7 @@ public class input extends javax.swing.JFrame {
                 jRadioButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 286, 87, -1));
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -218,6 +337,7 @@ public class input extends javax.swing.JFrame {
                 jRadioButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 336, -1, -1));
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -227,21 +347,23 @@ public class input extends javax.swing.JFrame {
                 jRadioButton3ActionPerformed(evt);
             }
         });
+        getContentPane().add(jRadioButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(446, 311, 87, -1));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setText("Tipo:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(466, 248, 41, 19));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel2.setText("Ingresos extra:");
-
-        jtxtaguinaldo.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jtxtaguinaldo.setText("jTextField8");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(406, 84, 130, -1));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
-        jLabel3.setText("Aguinaldo:");
+        jLabel3.setText("Aguinaldo(días):");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, 110, -1));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
-        jLabel4.setText("Bono:");
+        jLabel4.setText("Comision/Bono:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 140, -1, -1));
 
         jtxtbono1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jtxtbono1.setText("jTextField9");
@@ -255,9 +377,11 @@ public class input extends javax.swing.JFrame {
                 jtxtbono1KeyTyped(evt);
             }
         });
+        getContentPane().add(jtxtbono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 110, -1));
 
         jLabel5.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
         jLabel5.setText("NIT:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(359, 43, 31, -1));
 
         nit1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         nit1.setText("nit");
@@ -269,25 +393,11 @@ public class input extends javax.swing.JFrame {
                 nit1KeyTyped(evt);
             }
         });
-
-        jComboBox1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
-            }
-        });
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setFont(new java.awt.Font("Yu Gothic", 0, 14)); // NOI18N
-        jLabel6.setText("Mes:");
+        getContentPane().add(nit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(394, 38, 42, -1));
 
         jLabel7.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
         jLabel7.setText("fecha");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 385, 131, 25));
 
         nit2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         nit2.setText("nit");
@@ -304,6 +414,7 @@ public class input extends javax.swing.JFrame {
                 nit2KeyTyped(evt);
             }
         });
+        getContentPane().add(nit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 40, 54, -1));
 
         nit3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         nit3.setText("nit");
@@ -320,6 +431,7 @@ public class input extends javax.swing.JFrame {
                 nit3KeyTyped(evt);
             }
         });
+        getContentPane().add(nit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(526, 40, 34, -1));
 
         nit4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         nit4.setText("nit");
@@ -331,180 +443,309 @@ public class input extends javax.swing.JFrame {
                 nit4KeyTyped(evt);
             }
         });
+        getContentPane().add(nit4, new org.netbeans.lib.awtextra.AbsoluteConstraints(578, 40, 28, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel8.setText("-");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 38, 10, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel9.setText("-");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 38, 11, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel10.setText("-");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 38, 11, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(42, 42, 42)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jisss)
-                                        .addComponent(jafp)
-                                        .addComponent(jsalario)
-                                        .addComponent(jnombre)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jrenta, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jsalarioneto, javax.swing.GroupLayout.Alignment.TRAILING))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jsalariomenos)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtxtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                            .addComponent(jtxtsalario)
-                            .addComponent(jtxtafp)
-                            .addComponent(jtxtisss)
-                            .addComponent(jtstsalariomenos)
-                            .addComponent(jtxtrenta)
-                            .addComponent(jtxtsalarioneto))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton3)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(jRadioButton2)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtxtbono1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jtxtaguinaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(7, 7, 7)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nit1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(nit2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(nit3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(nit4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(55, 55, 55))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jButton1)
-                        .addGap(43, 43, 43)
-                        .addComponent(jButton2)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton3)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jnombre))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtxtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5)
-                            .addComponent(nit1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nit2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nit3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nit4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtxtsalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jsalario)
-                            .addComponent(jLabel2))
-                        .addGap(26, 26, 26)
-                        .addComponent(jafp))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jtxtafp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jtxtbono1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jisss)
-                    .addComponent(jtxtisss, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jtxtaguinaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtstsalariomenos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jsalariomenos))
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtxtrenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jrenta))
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtxtsalarioneto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jsalarioneto))
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3)
-                        .addGap(2, 2, 2)
-                        .addComponent(jRadioButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(23, 23, 23))
-        );
+        jComboBox1.setFont(new java.awt.Font("Yu Gothic", 0, 12)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin Aguinaldo", "15 días", "19 días", "21 días" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 109, -1));
+
+        jPanel1.setBackground(new java.awt.Color(232, 230, 230));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Serif", 0, 16)); // NOI18N
+        jLabel12.setText("Mes");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 24, 40, -1));
+
+        jLabel6.setFont(new java.awt.Font("Serif", 0, 16)); // NOI18N
+        jLabel6.setText("Porcentaje de ingresos(%)");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 24, -1, -1));
+
+        jLabel11.setFont(new java.awt.Font("Serif", 0, 16)); // NOI18N
+        jLabel11.setText("Vacaciones(días)");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 24, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel13.setText("Enero");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 52, 65, -1));
+
+        jLabel14.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel14.setText("Febrero");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 81, 65, -1));
+
+        jLabel15.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel15.setText("Marzo");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 65, -1));
+
+        jLabel16.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel16.setText("Abril");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 65, -1));
+
+        jLabel17.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel17.setText("Mayo");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 65, -1));
+
+        jLabel18.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel18.setText("Junio");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 65, -1));
+
+        jLabel19.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel19.setText("Julio");
+        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 65, -1));
+
+        jLabel20.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel20.setText("Agosto");
+        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 65, -1));
+
+        jLabel21.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel21.setText("Septiembre");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, -1, -1));
+
+        jLabel22.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel22.setText("Octubre");
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 64, -1));
+
+        jLabel23.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel23.setText("Noviembre");
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
+
+        jLabel24.setFont(new java.awt.Font("Serif", 0, 14)); // NOI18N
+        jLabel24.setText("Diciembre");
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 64, -1));
+
+        jTextField1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField1.setText("jTextField1");
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 52, 55, -1));
+
+        jTextField2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField2.setText("jTextField2");
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 80, 55, -1));
+
+        jTextField3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField3.setText("jTextField3");
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 108, 55, -1));
+
+        jTextField4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField4.setText("jTextField4");
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 55, -1));
+
+        jTextField5.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField5.setText("jTextField5");
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 55, -1));
+
+        jTextField6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField6.setText("jTextField6");
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField6KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 55, -1));
+
+        jTextField7.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField7.setText("jTextField7");
+        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField7KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 55, -1));
+
+        jTextField8.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField8.setText("jTextField8");
+        jTextField8.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField8KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 55, -1));
+
+        jTextField9.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField9.setText("jTextField9");
+        jTextField9.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField9KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 55, -1));
+
+        jTextField10.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField10.setText("jTextField10");
+        jTextField10.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField10KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 320, 55, -1));
+
+        jTextField11.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField11.setText("jTextField11");
+        jTextField11.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField11KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 55, -1));
+
+        jTextField12.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField12.setText("jTextField12");
+        jTextField12.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField12KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 55, -1));
+
+        jTextField13.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField13.setText("jTextField13");
+        jTextField13.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField13KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 52, 60, -1));
+
+        jTextField14.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField14.setText("jTextField14");
+        jTextField14.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField14KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 80, 60, -1));
+
+        jTextField15.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField15.setText("jTextField15");
+        jTextField15.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField15KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 108, 60, -1));
+
+        jTextField16.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField16.setText("jTextField16");
+        jTextField16.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField16KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField16, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 60, -1));
+
+        jTextField17.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField17.setText("jTextField17");
+        jTextField17.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField17KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 60, -1));
+
+        jTextField18.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField18.setText("jTextField18");
+        jTextField18.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField18KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 60, -1));
+
+        jTextField19.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField19.setText("jTextField19");
+        jTextField19.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField19KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField19, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 60, -1));
+
+        jTextField20.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField20.setText("jTextField20");
+        jTextField20.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField20KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField20, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 60, -1));
+
+        jTextField21.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField21.setText("jTextField21");
+        jTextField21.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField21KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField21, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 60, -1));
+
+        jTextField22.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField22.setText("jTextField22");
+        jTextField22.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField22KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField22, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 60, -1));
+
+        jTextField23.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField23.setText("jTextField23");
+        jTextField23.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField23KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField23, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 60, -1));
+
+        jTextField24.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTextField24.setText("jTextField24");
+        jTextField24.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField24KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField24, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 380, 60, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 0, 350, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -514,11 +755,8 @@ public class input extends javax.swing.JFrame {
     public double aguinaldo;
     public boolean validar = false;
 
-    public void llenarMonto() {
-        for (int i = 0; i < 12; i++) {
-            bono.add(Double.valueOf(0));
-        }
-    }
+
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         borrar();
@@ -526,6 +764,12 @@ public class input extends javax.swing.JFrame {
         this.jRadioButton2.setEnabled(false);
         this.jRadioButton3.setEnabled(false);
         this.jButton3.setEnabled(false);
+        
+        this.jtxtafp.setEnabled(false);
+        this.jtxtisss.setEnabled(false);
+        this.jtstsalariomenos.setEnabled(false);
+        this.jtxtrenta.setEnabled(false);
+        this.jtxtsalarioneto.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void borrar() {
@@ -543,15 +787,17 @@ public class input extends javax.swing.JFrame {
         if (this.jtxtsalario.getText().isEmpty()) {
             borrar();
         } else {
-            if (this.jtxtaguinaldo.getText().isEmpty()) {
-                this.aguinaldo = 0;
-            } else {
-                this.aguinaldo = Double.parseDouble(this.jtxtaguinaldo.getText());
-            }
+            
             this.jButton3.setEnabled(true);
             this.jRadioButton1.setEnabled(true);
             this.jRadioButton2.setEnabled(true);
             this.jRadioButton3.setEnabled(true);
+            
+            this.jtxtafp.setEnabled(true);
+            this.jtxtisss.setEnabled(true);
+            this.jtstsalariomenos.setEnabled(true);
+            this.jtxtrenta.setEnabled(true);
+            this.jtxtsalarioneto.setEnabled(true);
 
         }
 
@@ -584,6 +830,12 @@ public class input extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtxtsalarioKeyTyped
 
+    public void numeros(java.awt.event.KeyEvent evt){
+        char enter = evt.getKeyChar();
+        if (!(Character.isDigit(enter))) {
+            evt.consume();
+        }
+    }
     private void jtxtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtnombreKeyTyped
         // TODO add your handling code here:
         char enter = evt.getKeyChar();
@@ -826,44 +1078,48 @@ public class input extends javax.swing.JFrame {
 
             this.nit = this.nit1.getText() + "-" + this.nit2.getText() + "-" + this.nit3.getText() + "-" + this.nit4.getText();
             this.nombre = this.jtxtnombre.getText();
-            if (this.jtxtaguinaldo.getText().isEmpty()) {
-                this.aguinaldo = 0;
-            } else {
-                this.aguinaldo = Double.parseDouble(this.jtxtaguinaldo.getText());
-                if(this.aguinaldo > 600){
-                    aguinaldo_renta = this.aguinaldo - 600;
-                }
+            
+            double suma = bono() + Double.parseDouble(this.jtxtsalario.getText());
+            this.aguinaldo = suma / 30;
+            switch(dias){
+                case 0:
+                    this.aguinaldo = 0;
+                    break;
+                case 1:
+                    this.aguinaldo = this.aguinaldo * 15;
+                    break;
+                case 2:
+                    this.aguinaldo = this.aguinaldo * 19;
+                    break;
+                case 3:
+                    this.aguinaldo = this.aguinaldo * 21;
+                    break;
+                default:
+                    break;
+            }
+            round(this.aguinaldo, 2);
+            if(this.aguinaldo > 600){
+                    aguinaldo_renta = round((this.aguinaldo - 600), 2);
+                }else{
+                aguinaldo_renta = 0;
             }
             for (int i = 0; i < 11; i++) {
-                this.lista.add(new Renta(round(Double.parseDouble(this.jtxtsalario.getText()), 2), round(bono(), 2)));
+                double sal = Double.parseDouble(this.jtxtsalario.getText()) + vacacion().get(i);
+                this.lista.add(new Renta(round(sal, 2), round(bono(), 2)));
             }
-            this.lista.add(new Renta(round(Double.parseDouble(this.jtxtsalario.getText()) + aguinaldo_renta, 2), round(bono(), 2)));
-            System.out.println("afp: " + this.lista.get(0).afp + "\n isss: " + this.lista.get(0).isss + "\n isr: " + this.lista.get(0).salariomenos
-                    + "\n renta: " + this.lista.get(0).renta + "\n neto: " + this.lista.get(0).salarionetom);
+            double sal = Double.parseDouble(this.jtxtsalario.getText()) + vacacion().get(11);
+            this.lista.add(new Renta(round(sal, 2), this.aguinaldo_renta, round(bono(), 2)));
+            //System.out.println("afp: " + this.lista.get(0).afp + "\n isss: " + this.lista.get(0).isss + "\n isr: " + this.lista.get(0).salariomenos
+                    //+ "\n renta: " + this.lista.get(0).renta + "\n neto: " + this.lista.get(0).salarionetom);
             
             this.nit = this.nit1.getText() + "-" + this.nit2.getText() + "-" + this.nit3.getText() + "-" + this.nit4.getText();
-            tabla tabla = new tabla(this.lista, this.aguinaldo, aguinaldo_renta, this.nit);
+            this.tabla = new tabla(this.lista, this.aguinaldo, aguinaldo_renta, this.nit, this.jtxtnombre.getText());
             tabla.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
     public int c = 0;
     public int a = 0;
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        // TODO add your handling code here: c++;
-        c++;
-        if (c % 2 == 0) {
-            a++;
-            this.bono.set(WIDTH, aguinaldo);
-            System.out.println(this.jComboBox1.getSelectedIndex());
-        }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        System.out.println(this.jComboBox1.getSelectedIndex());
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void nit4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nit4KeyReleased
         // TODO add your handling code here:
         if (this.nit4.getText().length() > 0) {
@@ -896,10 +1152,280 @@ public class input extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_nit4KeyTyped
 
+    private void jtxtsalarionetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtsalarionetoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtsalarionetoActionPerformed
+
+    public int dias = 0;
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+        dias = this.jComboBox1.getSelectedIndex();
+        System.out.println(dias);
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField6KeyTyped
+
+    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField7KeyTyped
+
+    private void jTextField8KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField8KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField8KeyTyped
+
+    private void jTextField9KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField9KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField9KeyTyped
+
+    private void jTextField10KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField10KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField10KeyTyped
+
+    private void jTextField11KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField11KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField11KeyTyped
+
+    private void jTextField12KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField12KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField12KeyTyped
+
+    private void jTextField13KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField13KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField13KeyTyped
+
+    private void jTextField14KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField14KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField14KeyTyped
+
+    private void jTextField15KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField15KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField15KeyTyped
+
+    private void jTextField16KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField16KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField16KeyTyped
+
+    private void jTextField17KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField17KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField17KeyTyped
+
+    private void jTextField18KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField18KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField18KeyTyped
+
+    private void jTextField19KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField19KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField19KeyTyped
+
+    private void jTextField20KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField20KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField20KeyTyped
+
+    private void jTextField21KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField21KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField21KeyTyped
+
+    private void jTextField22KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField22KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField22KeyTyped
+
+    private void jTextField23KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField23KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField23KeyTyped
+
+    private void jTextField24KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField24KeyTyped
+        // TODO add your handling code here:
+        numeros(evt);
+    }//GEN-LAST:event_jTextField24KeyTyped
+
+    public ArrayList<Double> vacacion(){
+        ArrayList<Double> vacacion = new ArrayList();
+        double sueldo = Double.parseDouble(this.jtxtsalario.getText());
+        //lista de porcentajes
+        if(this.jTextField1.getText().isEmpty()){
+                this.lporcentaje.set(0, 0.0);
+            }else{
+                this.lporcentaje.set(0, Double.parseDouble(this.jTextField1.getText()));
+            }
+        if(this.jTextField2.getText().isEmpty()){
+                this.lporcentaje.set(1, 0.0);
+            }else{
+                this.lporcentaje.set(1, Double.parseDouble(this.jTextField2.getText()));
+            }
+        if(this.jTextField3.getText().isEmpty()){
+                this.lporcentaje.set(2, 0.0);
+            }else{
+                this.lporcentaje.set(2, Double.parseDouble(this.jTextField3.getText()));
+            }
+        if(this.jTextField4.getText().isEmpty()){
+                this.lporcentaje.set(3, 0.0);
+            }else{
+                this.lporcentaje.set(3, Double.parseDouble(this.jTextField4.getText()));
+            }
+        if(this.jTextField5.getText().isEmpty()){
+                this.lporcentaje.set(4, 0.0);
+            }else{
+                this.lporcentaje.set(4, Double.parseDouble(this.jTextField5.getText()));
+            }
+        if(this.jTextField6.getText().isEmpty()){
+                this.lporcentaje.set(5, 0.0);
+            }else{
+                this.lporcentaje.set(5, Double.parseDouble(this.jTextField6.getText()));
+            }
+        if(this.jTextField7.getText().isEmpty()){
+                this.lporcentaje.set(6, 0.0);
+            }else{
+                this.lporcentaje.set(6, Double.parseDouble(this.jTextField7.getText()));
+            }
+        if(this.jTextField8.getText().isEmpty()){
+                this.lporcentaje.set(7, 0.0);
+            }else{
+                this.lporcentaje.set(7, Double.parseDouble(this.jTextField8.getText()));
+            }
+        if(this.jTextField9.getText().isEmpty()){
+                this.lporcentaje.set(8, 0.0);
+            }else{
+                this.lporcentaje.set(8, Double.parseDouble(this.jTextField9.getText()));
+            }
+        if(this.jTextField10.getText().isEmpty()){
+                this.lporcentaje.set(9, 0.0);
+            }else{
+                this.lporcentaje.set(9, Double.parseDouble(this.jTextField10.getText()));
+            }
+        if(this.jTextField11.getText().isEmpty()){
+                this.lporcentaje.set(10, 0.0);
+            }else{
+                this.lporcentaje.set(10, Double.parseDouble(this.jTextField11.getText()));
+            }
+        if(this.jTextField12.getText().isEmpty()){
+                this.lporcentaje.set(11, 0.0);
+            }else{
+                this.lporcentaje.set(11, Double.parseDouble(this.jTextField12.getText()));
+            }
+        //***********************************************************************************
+        //lista de dias
+        if(this.jTextField13.getText().isEmpty()){
+                this.ldias.set(0, 0.0);
+            }else{
+                this.ldias.set(0, Double.parseDouble(this.jTextField13.getText()));
+            }
+        if(this.jTextField14.getText().isEmpty()){
+                this.ldias.set(1, 0.0);
+            }else{
+                this.ldias.set(1, Double.parseDouble(this.jTextField14.getText()));
+            }
+        if(this.jTextField15.getText().isEmpty()){
+                this.ldias.set(2, 0.0);
+            }else{
+                this.ldias.set(2, Double.parseDouble(this.jTextField15.getText()));
+            }
+        if(this.jTextField16.getText().isEmpty()){
+                this.ldias.set(3, 0.0);
+            }else{
+                this.ldias.set(3, Double.parseDouble(this.jTextField16.getText()));
+            }
+        if(this.jTextField17.getText().isEmpty()){
+                this.ldias.set(4, 0.0);
+            }else{
+                this.ldias.set(4, Double.parseDouble(this.jTextField17.getText()));
+            }
+        if(this.jTextField18.getText().isEmpty()){
+                this.ldias.set(5, 0.0);
+            }else{
+                this.ldias.set(5, Double.parseDouble(this.jTextField18.getText()));
+            }
+        if(this.jTextField19.getText().isEmpty()){
+                this.ldias.set(6, 0.0);
+            }else{
+                this.ldias.set(6, Double.parseDouble(this.jTextField19.getText()));
+            }
+        if(this.jTextField20.getText().isEmpty()){
+                this.ldias.set(7, 0.0);
+            }else{
+                this.ldias.set(7, Double.parseDouble(this.jTextField20.getText()));
+            }
+        if(this.jTextField21.getText().isEmpty()){
+                this.ldias.set(8, 0.0);
+            }else{
+                this.ldias.set(8, Double.parseDouble(this.jTextField21.getText()));
+            }
+        if(this.jTextField22.getText().isEmpty()){
+                this.ldias.set(9, 0.0);
+            }else{
+                this.ldias.set(9, Double.parseDouble(this.jTextField22.getText()));
+            }
+        if(this.jTextField23.getText().isEmpty()){
+                this.ldias.set(10, 0.0);
+            }else{
+                this.ldias.set(10, Double.parseDouble(this.jTextField23.getText()));
+            }
+        if(this.jTextField24.getText().isEmpty()){
+                this.ldias.set(11, 0.0);
+            }else{
+                this.ldias.set(11, Double.parseDouble(this.jTextField24.getText()));
+            }
+        
+        //*****************************Calculos***********************************
+        for (int i = 0; i < 12; i++) {
+            double variable = round((((sueldo / 30) * this.ldias.get(i)) * (this.lporcentaje.get(i) / 100)), 2);
+            vacacion.add(variable);
+            //System.out.println(sueldo);
+        }
+        ////////////////////////////
+        return vacacion;
+    }
+    
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
+        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -926,7 +1452,11 @@ public class input extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new input().setVisible(true);
+                try {
+                    new input().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(input.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -939,7 +1469,21 @@ public class input extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -947,9 +1491,34 @@ public class input extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField jTextField13;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField16;
+    private javax.swing.JTextField jTextField17;
+    private javax.swing.JTextField jTextField18;
+    private javax.swing.JTextField jTextField19;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField20;
+    private javax.swing.JTextField jTextField21;
+    private javax.swing.JTextField jTextField22;
+    private javax.swing.JTextField jTextField23;
+    private javax.swing.JTextField jTextField24;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel jafp;
     private javax.swing.JLabel jisss;
     private javax.swing.JLabel jnombre;
@@ -959,7 +1528,6 @@ public class input extends javax.swing.JFrame {
     private javax.swing.JLabel jsalarioneto;
     private javax.swing.JTextField jtstsalariomenos;
     private javax.swing.JTextField jtxtafp;
-    private javax.swing.JTextField jtxtaguinaldo;
     private javax.swing.JTextField jtxtbono1;
     private javax.swing.JTextField jtxtisss;
     private javax.swing.JTextField jtxtnombre;
