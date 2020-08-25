@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="500" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bdabc94c-cdc0-4eb7-999e-e7282de21d62">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="aguinaldoaguinaldorenta" class="java.lang.Double"/>
+	<parameter name="psalariototalaguinaldo" class="java.lang.Double"/>
+	<parameter name="pisss" class="java.lang.Double"/>
+	<parameter name="pafp" class="java.lang.Double"/>
+	<parameter name="prenta" class="java.lang.Double"/>
+	<parameter name="ptotal_remuneracion" class="java.lang.Double"/>
+	<parameter name="pfechainicial" class="java.lang.String"/>
+	<parameter name="pnit" class="java.lang.String"/>
+	<parameter name="pnombre" class="java.lang.String"/>
+	<parameter name="paguinaldo_renta" class="java.lang.Double"/>
+	<parameter name="pfechafinal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="197" y="15" width="160" height="23" uuid="4afa5124-a4a2-4abb-b1f0-d609468b7379">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sociedad X. S.A DE C.V]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="137" splitType="Stretch">
+			<staticText>
+				<reportElement x="129" y="0" width="215" height="30" uuid="6b4a2e7a-4f23-48fa-967f-7fa1b5e0b732"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[El infrascrito agente de retención hace constar que]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="30" width="135" height="30" uuid="7c7e679a-6fa9-4d65-8d3e-60561d953c2b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pnombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="265" y="30" width="50" height="30" uuid="bfc0d58c-4c99-4ee5-ac7a-4c8363d5e7d8"/>
+				<textElement rotation="None">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[con NIT.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="315" y="30" width="115" height="30" uuid="e459b165-8387-402f-bd21-d29b46689a94"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pnit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="129" y="60" width="301" height="30" uuid="16707606-366c-41a2-b430-c1a1542aeb26"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[en su calidad de empleado/a de esta empresa, devengó durante
+el perído comprendido entre el]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="129" y="90" width="100" height="20" uuid="272d9a0f-b871-4f43-8deb-3a20ef5c4ae1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pfechainicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="90" width="100" height="20" uuid="77b32039-7396-4c82-a2c2-5994cf31de3a"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{pfechafinal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="240" y="90" width="12" height="20" uuid="ef9b0d9f-0aa1-4ea1-805b-a0ac9a856777"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="110" width="98" height="20" uuid="44690cd0-8d5e-49ea-8a86-fe8880f9dfa8"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[lo siguiente]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="210" splitType="Stretch">
+			<staticText>
+				<reportElement x="129" y="0" width="60" height="24" uuid="f218bac4-d4d1-4b3b-8ba4-6392235eb581"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="24" width="182" height="20" uuid="d30e00b9-9207-45ac-b5a8-dc7f3c51ece4">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ingresos gravados/devengado   $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="124" width="182" height="20" uuid="5540771c-3be2-4305-a934-8db1a531122b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Aguinaldo no gravado                $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="84" width="182" height="20" uuid="13ebfecb-6929-4f3f-856b-5dfc19b3f9ab">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cotización ISSS                         $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="44" width="182" height="20" uuid="9af89a33-e6e0-4831-b587-a5e7b3810cb6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Aguinaldo gravado                     $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="144" width="182" height="20" uuid="e720baeb-ab03-4b81-9c08-3587ed7b1a40">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Impuesto sobre la renta             $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="64" width="182" height="20" uuid="40444370-1333-4d13-8139-7071f01b74ca">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Cotización AFP                          $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="104" width="182" height="20" uuid="768526ed-3e06-4591-97b9-795367b5612b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Monto gravado                           $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="170" width="300" height="20" uuid="f396724a-2f13-43a7-a177-10118ec7ffc2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Se extiende la presente en la ciudad de San Salvador el]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="129" y="190" width="114" height="20" uuid="841e0beb-ef86-4fd3-89cc-a6240b836104">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="24" width="120" height="20" uuid="c823d95c-1195-4be5-854c-d89d20e8e4fd"/>
+				<textFieldExpression><![CDATA[$P{psalariototalaguinaldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="44" width="120" height="20" uuid="38970d62-76bf-4cb8-972b-a324fdc8c949">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{paguinaldo_renta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="64" width="120" height="20" uuid="fbfe32bf-2c36-4010-8789-a9fa0691ba1d"/>
+				<textFieldExpression><![CDATA[$P{pafp}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="84" width="120" height="20" uuid="2f18dcc2-27af-4d19-9a7d-20802856efe7"/>
+				<textFieldExpression><![CDATA[$P{pisss}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="104" width="120" height="20" uuid="8081167b-2842-4a13-98a2-e98f9a3afca8">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{ptotal_remuneracion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="124" width="120" height="20" uuid="e36bff4a-61b1-41a9-a978-5a368d60c9fa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{aguinaldoaguinaldorenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="144" width="120" height="20" uuid="0c420f85-995e-4ec7-8a25-1378345cc211">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{prenta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="51" splitType="Stretch">
+			<staticText>
+				<reportElement x="160" y="20" width="234" height="20" uuid="711df1c3-d495-44f8-963d-236cf02ef3dc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Centro de Servicios de Recursos Humanos ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="236" y="0" width="86" height="20" uuid="78690bcd-1e00-4101-b482-54b083f08e74">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="12" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Julieta Ramirez]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
